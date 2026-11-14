@@ -1,34 +1,46 @@
 :root {
   color-scheme: light;
 
-  /* Brand colors: starter industrial palette; tune after client brand review. */
-  --color-ink: #182126;
-  --color-ink-soft: #48545a;
-  --color-paper: #f5f4f0;
-  --color-surface: #ffffff;
-  --color-steel: #aeb8bb;
-  --color-steel-dark: #526168;
-  --color-accent: #b76532;
-  --color-accent-hover: #96502a;
-  --color-border: #d9dddc;
-  --color-success: #2f6b4f;
-  --color-error: #a13d32;
+  /* Brand palette */
+  --color-charcoal: #111111;
+  --color-ivory: #f4f3ef;
+  --color-white: #ffffff;
+  --color-orange: #f36b24;
 
-  /* Typography */
-  --font-body: Arial, Helvetica, sans-serif;
-  --font-heading: Arial, Helvetica, sans-serif;
-  --font-mono: "Cascadia Code", Consolas, monospace;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-display: clamp(2.75rem, 7vw, 6.5rem);
+  /* Semantic colours */
+  --color-text-primary: var(--color-charcoal);
+  --color-text-secondary: #5f5e59;
+  --color-text-inverse: var(--color-white);
+  --color-border-light: #e3e1db;
+  --color-border-dark: #3c3c3c;
+  --color-surface-light: var(--color-ivory);
+  --color-surface-dark: var(--color-charcoal);
 
-  /* Layout and spacing */
-  --content-max: 80rem;
-  --content-wide: 90rem;
-  --layout-gutter: clamp(1.25rem, 5vw, 5rem);
+  /* Font families are provided by next/font in the root layout. */
+  --font-display: var(--font-space-grotesk), "Trebuchet MS", sans-serif;
+  --font-body: var(--font-manrope), system-ui, sans-serif;
+
+  /* Type scale */
+  --font-size-h1: clamp(2.75rem, 5.5vw, 5rem);
+  --font-size-h2: clamp(2.25rem, 4vw, 3.5rem);
+  --font-size-h3: clamp(1.5rem, 2.5vw, 2rem);
+  --font-size-h4: clamp(1.25rem, 2vw, 1.5rem);
+  --font-size-body: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-caption: 0.75rem;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-heading: 1.1;
+  --line-height-body: 1.6;
+  --line-height-compact: 1.4;
+  --letter-spacing-tight: -0.04em;
+  --letter-spacing-heading: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.04em;
+
+  /* Spacing scale */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -37,18 +49,26 @@
   --space-8: 2rem;
   --space-12: 3rem;
   --space-16: 4rem;
+  --space-20: 5rem;
   --space-24: 6rem;
-  --section-space: clamp(4rem, 8vw, 8rem);
+  --space-component: var(--space-4);
+  --space-card: var(--space-6);
+  --space-section: clamp(var(--space-16), 8vw, var(--space-24));
+  --space-section-large: clamp(var(--space-20), 10vw, 8rem);
 
-  /* Shape, depth, and motion */
+  /* Shared layout */
+  --container-max: 80rem;
+  --container-wide: 90rem;
+  --page-gutter: clamp(1rem, 4vw, 3rem);
+
+  /* Finishing and motion */
   --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
-  --radius-pill: 999px;
-  --shadow-card: 0 1rem 3rem rgb(24 33 38 / 10%);
-  --shadow-header: 0 0.25rem 1rem rgb(24 33 38 / 8%);
+  --radius-card: 0.5rem;
+  --border-width: 1px;
+  --shadow-subtle: 0 0.5rem 2rem rgb(17 17 17 / 8%);
   --transition-fast: 160ms ease;
   --transition-standard: 240ms ease;
+  --z-skip-link: 100;
 }
 
 *,
@@ -60,18 +80,19 @@
 html {
   min-width: 20rem;
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
-  background: var(--color-paper);
+  scroll-padding-top: var(--space-20);
+  background: var(--color-surface-light);
 }
 
 body {
   min-height: 100vh;
   margin: 0;
-  color: var(--color-ink);
-  background: var(--color-paper);
+  color: var(--color-text-primary);
+  background: var(--color-surface-light);
   font-family: var(--font-body);
-  font-size: var(--font-size-base);
-  line-height: 1.6;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -91,8 +112,13 @@ a {
 
 a {
   color: inherit;
-  text-decoration-thickness: 0.08em;
+  text-decoration-thickness: var(--border-width);
   text-underline-offset: 0.18em;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-orange);
 }
 
 img,
@@ -121,53 +147,87 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-heading);
-  line-height: 1.08;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-heading);
+  line-height: var(--line-height-heading);
   text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+h4 {
+  font-size: var(--font-size-h4);
 }
 
 p {
   text-wrap: pretty;
 }
 
+small,
+.text-small {
+  font-size: var(--font-size-small);
+}
+
+.text-caption {
+  font-size: var(--font-size-caption);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-compact);
+}
+
 ::selection {
-  color: var(--color-surface);
-  background: var(--color-accent);
+  color: var(--color-text-primary);
+  background: var(--color-orange);
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-accent);
+  outline: 3px solid var(--color-orange);
   outline-offset: 3px;
 }
 
-.container {
-  width: min(calc(100% - 2 * var(--layout-gutter)), var(--content-max));
+.container,
+.container--wide {
+  width: calc(100% - 2 * var(--page-gutter));
   margin-inline: auto;
 }
 
+.container {
+  max-width: var(--container-max);
+}
+
 .container--wide {
-  width: min(calc(100% - 2 * var(--layout-gutter)), var(--content-wide));
-  margin-inline: auto;
+  max-width: var(--container-wide);
 }
 
 .container-fluid {
   width: 100%;
-  padding-inline: var(--layout-gutter);
+  padding-inline: var(--page-gutter);
 }
 
 .section {
-  padding-block: var(--section-space);
+  padding-block: var(--space-section);
 }
 
 .skip-link {
   position: fixed;
-  z-index: 100;
+  z-index: var(--z-skip-link);
   top: var(--space-4);
   left: var(--space-4);
   padding: var(--space-3) var(--space-4);
   transform: translateY(-200%);
-  color: var(--color-surface);
-  background: var(--color-ink);
+  color: var(--color-text-inverse);
+  background: var(--color-surface-dark);
 }
 
 .skip-link:focus {
