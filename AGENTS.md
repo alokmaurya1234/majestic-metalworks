@@ -2,17 +2,44 @@
 
 ## Approval and scope
 
-- Before implementation, inspect the relevant files and present a short plan
-  listing intended changes. Wait for the user's approval before starting a new
-  implementation phase.
+- Before implementation, inspect the current Git status and branch, confirm
+  there are no unrelated changes, and understand the relevant components and
+  architecture. Briefly state the intended scope, then proceed with the
+  user's requested task.
 - Make changes only within the scope approved by the user. Ask before adding a
   dependency, changing project-wide configuration, or expanding the scope.
-- Never create or change a GitHub repository, commit, push, open a pull request,
-  connect an external service, or deploy without the user's explicit approval.
-- Do not add tests or run tests unless the user asks. Report any checks that
-  were run and their results.
-- After an approved phase, summarize changed files, decisions, and outstanding
-  items. Show the diff before asking for approval to publish it.
+- Preserve existing user changes. Never reset, overwrite, or delete existing
+  Git history or remote repositories.
+- Do not add tests unless the user asks. After implementation, run ESLint and
+  TypeScript checks, and run a production build when appropriate. Inspect the
+  diff, remove unused code and imports, and report changed files and check
+  results.
+
+## Git and deployment workflow
+
+- `main` is the production branch. Never develop a feature directly on `main`.
+- Create one descriptive branch for each independent section or task, for
+  example `feature/home-hero` or `fix/mobile-navigation`.
+- Keep commits small and meaningful. Use Conventional Commit prefixes such as
+  `feat:`, `fix:`, `style:`, `docs:`, and `chore:`. Do not create empty or
+  meaningless commits.
+- Commit only verified changes on the feature branch. Never commit
+  `node_modules`, `.next`, `.env.local`, credentials, API keys, tokens, or
+  generated build artifacts. Keep `.env.example` safe and tracked.
+- After checks pass, push the feature branch to generate its Vercel Preview
+  deployment. This feature-branch preview push is part of the user's requested
+  workflow. Never push unverified work or push feature work directly to
+  `main`.
+- Show the local changes and provide the Preview URL when available. Wait for
+  the user's approval before creating or updating a pull request. Merge only
+  after explicit approval.
+- `main` deploys to Vercel Production. Confirm the production deployment after
+  an approved merge. Do not manually deploy production unless explicitly
+  requested.
+- Do not start another section or task until the user gives the next
+  instruction. If GitHub or Vercel access is unavailable, report the exact
+  manual step needed; never ask for passwords or personal access tokens in
+  chat.
 
 ## Project conventions
 
