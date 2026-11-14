@@ -118,12 +118,20 @@ projects.
 
 ## Global layout and styles
 
+- The root layout loads Space Grotesk for display text and Manrope for body text
+  through `next/font/google`; both are exposed to CSS as global font variables
+  with sans-serif fallback stacks.
+- `src/app/globals.scss` defines the approved brand and semantic colour tokens,
+  responsive type scale, shared spacing scale, base/accessibility styles, and
+  container primitives.
 - `.container` is centered with a maximum width of `1280px`.
 - `.container--wide` is centered with a maximum width of `1440px`.
 - `.container-fluid` spans the viewport and uses the shared page gutter.
-- `.section` uses the shared vertical section-spacing token.
+- `.section` uses the shared `--space-section` vertical spacing token.
 - Backgrounds can reach the viewport edge; content aligns to the appropriate
   shared container.
+- Shared Sass responsive breakpoints are 640px (large mobile), 768px (tablet),
+  1024px (laptop), and 1280px (desktop).
 - Keep design tokens and global resets in `src/app/globals.scss`; keep
   component-specific styling in Sass Modules.
 - See [design-direction.md](design-direction.md) for token names and visual

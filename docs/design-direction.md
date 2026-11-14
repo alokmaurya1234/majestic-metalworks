@@ -23,7 +23,7 @@ Use orange selectively for calls to action, important highlights, active navigat
 
 - Display and headings: **Space Grotesk**.
 - Body, navigation, labels, buttons, forms, and descriptions: **Manrope**.
-- When implementation is approved, load fonts with `next/font/google` in the root layout and use suitable system sans-serif fallbacks. Load only used weights: 400, 500, 600, and 700.
+- Space Grotesk and Manrope are loaded through `next/font/google` in the root layout, with system sans-serif fallback stacks. Weights 400, 500, 600, and 700 are available.
 - Maintain a consistent heading hierarchy, restrained letter spacing, and avoid unnecessary uppercase text.
 - Suggested responsive sizes: `--font-size-display: clamp(3.5rem, 7vw, 6.5rem)`, `--font-size-h1: clamp(2.75rem, 5.5vw, 5rem)`, `--font-size-h2: clamp(2.25rem, 4vw, 3.5rem)`, `--font-size-h3: clamp(1.5rem, 2.5vw, 2rem)`, `--font-size-body: 1rem`, and `--font-size-small: 0.875rem`.
 - Use heading line-height near 1.1, body line-height near 1.6, and comfortable measure for long paragraphs. Tune values against the approved reference without creating one-off values for each component.
@@ -34,17 +34,17 @@ Use orange selectively for calls to action, important highlights, active navigat
 
 - Colour tokens: the four brand values above plus semantic text, border, and surface mappings.
 - Typography tokens: `--font-display`, `--font-body`, display/H1/H2/H3/body/small sizes, `--font-weight-regular`, `--font-weight-medium`, `--font-weight-semibold`, `--font-weight-bold`, `--line-height-heading`, `--line-height-body`, and restrained letter-spacing tokens.
-- Spacing scale: `--space-1` 4px, `--space-2` 8px, `--space-3` 12px, `--space-4` 16px, `--space-6` 24px, `--space-8` 32px, `--space-12` 48px, `--space-16` 64px, `--space-20` 80px, and `--space-24` 96px for section rhythm, gaps, margins, and padding.
-- Layout tokens: `--container-max: 1280px`, `--container-wide: 1440px`, responsive `--page-gutter`, and responsive `--section-space-y`.
+- Spacing scale: `--space-1` 4px, `--space-2` 8px, `--space-3` 12px, `--space-4` 16px, `--space-6` 24px, `--space-8` 32px, `--space-12` 48px, `--space-16` 64px, `--space-20` 80px, and `--space-24` 96px. Semantic aliases include component, card, standard section, and large section spacing.
+- Layout tokens: `--container-max: 1280px`, `--container-wide: 1440px`, responsive `--page-gutter`, and `--space-section`.
 - Finishing tokens: `--radius-sm` 4px, `--radius-card` 8px, `--border-width` 1px, a subtle shadow token, short transition tokens, and `--z-header`, `--z-mobile-nav`, and `--z-skip-link` only where stacking is needed.
-- Avoid tokens without repeated use. Keep responsive spacing and heading sizes fluid where appropriate.
+- Responsive typography, gutters, and section spacing use fluid `clamp()` values. Avoid tokens without repeated use.
 
 ## Containers and sections
 
 - `.container`: centered, maximum content width 1280px.
 - `.container--wide`: centered, maximum content width 1440px; use for wide product grids and image compositions.
 - `.container-fluid`: viewport-width with the shared responsive horizontal gutter.
-- `.section`: uses the shared vertical section-spacing token.
+- `.section`: uses the shared `--space-section` vertical spacing token.
 - Full-bleed backgrounds may extend to the viewport edge; content remains aligned to a shared container. Avoid arbitrary max-widths and repeated horizontal padding in component modules.
 
 ## Shared components
@@ -82,7 +82,7 @@ Never present stock imagery as a completed Majestic Metalworks project. Prefer o
 
 ## Responsive layout and interaction
 
-- Use shared breakpoints throughout: 640px, 768px, 1024px, and 1280px. Keep Sass media-query thresholds consistent.
+- Use shared breakpoints throughout: 640px (large mobile), 768px (tablet), 1024px (laptop), and 1280px (desktop). Keep Sass media-query thresholds consistent.
 - Start with a single-column mobile layout, then add columns and more complex image compositions as space permits. Keep navigation, typography, cards, and gutters readable.
 - Prevent horizontal overflow. Crop images intentionally and allow text to wrap naturally.
 - Use semantic HTML, visible `:focus-visible` styles, accessible names, keyboard-operable controls, and reduced-motion support.
