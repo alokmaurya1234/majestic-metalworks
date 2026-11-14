@@ -1,162 +1,180 @@
+
+/* ======================================================
+   MAJESTIC METALWORKS — GLOBAL STYLES
+====================================================== */
+
 :root {
-  color-scheme: light;
-
-  /* Brand palette */
+  /* Brand */
   --color-charcoal: #111111;
-  --color-ivory: #f4f3ef;
-  --color-white: #ffffff;
-  --color-orange: #f36b24;
+  --color-ivory: #F4F3EF;
+  --color-white: #FFFFFF;
+  --color-orange: #F36B24;
+  --color-orange-hover: #FF8040;
 
-  /* Semantic colours */
-  --color-text-primary: var(--color-charcoal);
-  --color-text-secondary: #5f5e59;
-  --color-text-inverse: var(--color-white);
-  --color-border-light: #e3e1db;
-  --color-border-dark: #3c3c3c;
-  --color-surface-light: var(--color-ivory);
-  --color-surface-dark: var(--color-charcoal);
+  /* Text */
+  --color-text-primary: #171717;
+  --color-text-secondary: #666666;
+  --color-text-muted: #929292;
+  --color-text-inverse: #FFFFFF;
 
-  /* Font families are provided by next/font in the root layout. */
-  --font-display: var(--font-space-grotesk), "Trebuchet MS", sans-serif;
-  --font-body: var(--font-manrope), system-ui, sans-serif;
+  /* Surfaces */
+  --color-surface-light: #FFFFFF;
+  --color-surface-ivory: #F4F3EF;
+  --color-surface-dark: #111111;
+  --color-surface-dark-secondary: #191919;
 
-  /* Type scale */
-  --font-size-h1: clamp(2.75rem, 5.5vw, 5rem);
-  --font-size-h2: clamp(2.25rem, 4vw, 3.5rem);
-  --font-size-h3: clamp(1.5rem, 2.5vw, 2rem);
-  --font-size-h4: clamp(1.25rem, 2vw, 1.5rem);
-  --font-size-body: 1rem;
-  --font-size-small: 0.875rem;
-  --font-size-caption: 0.75rem;
+  /* Borders */
+  --color-border-light: rgba(17, 17, 17, 0.10);
+  --color-border-dark: rgba(255, 255, 255, 0.15);
+
+  /* Typography */
+  --font-display: var(--font-space-grotesk, "Space Grotesk"), sans-serif;
+  --font-body: var(--font-manrope, "Manrope"), sans-serif;
+
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --line-height-heading: 1.1;
-  --line-height-body: 1.6;
-  --line-height-compact: 1.4;
-  --letter-spacing-tight: -0.04em;
-  --letter-spacing-heading: -0.025em;
-  --letter-spacing-normal: 0;
-  --letter-spacing-wide: 0.04em;
 
-  /* Spacing scale */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-24: 6rem;
-  --space-component: var(--space-4);
-  --space-card: var(--space-6);
-  --space-section: clamp(var(--space-16), 8vw, var(--space-24));
-  --space-section-large: clamp(var(--space-20), 10vw, 8rem);
+  --font-size-h1: clamp(2.25rem, 5vw, 5rem);
+  --font-size-h2: clamp(1.875rem, 3.5vw, 3.5rem);
+  --font-size-h3: clamp(1.5rem, 2.5vw, 2.25rem);
+  --font-size-h4: clamp(1.125rem, 1.8vw, 1.5rem);
+  --font-size-body: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-caption: 0.75rem;
 
-  /* Shared layout */
-  --container-max: 80rem;
-  --container-wide: 90rem;
-  --page-gutter: clamp(1rem, 4vw, 3rem);
+  /* Line height */
+  --line-height-tight: 1.05;
+  --line-height-heading: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
 
-  /* Finishing and motion */
-  --radius-sm: 0.25rem;
-  --radius-card: 0.5rem;
-  --border-width: 1px;
-  --shadow-subtle: 0 0.5rem 2rem rgb(17 17 17 / 8%);
-  --transition-fast: 160ms ease;
-  --transition-standard: 240ms ease;
-  --z-skip-link: 100;
+  /* Letter spacing */
+  --letter-spacing-tight: -0.055em;
+  --letter-spacing-normal: -0.015em;
+  --letter-spacing-wide: 0.12em;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Containers */
+  --container-width: 80%;
+  --container-max: 1280px;
+  --container-wide: 1600px;
+
+  /* Section spacing */
+  --section-space-y: clamp(60px, 7vw, 120px);
+  --section-space-y-small: clamp(40px, 5vw, 80px);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-xl: 26px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 18px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.10);
+  --shadow-navbar: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Z-index */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 500;
+  --z-navbar: 1000;
+  --z-overlay: 1100;
+  --z-modal: 1200;
 }
+
+
+/* ======================================================
+   RESET
+====================================================== */
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+
+/* ======================================================
+   BASE
+====================================================== */
+
 html {
-  min-width: 20rem;
+  width: 100%;
+  min-width: 320px;
   scroll-behavior: smooth;
-  scroll-padding-top: var(--space-20);
-  background: var(--color-surface-light);
+  scroll-padding-top: 110px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  width: 100%;
+  min-width: 320px;
   min-height: 100vh;
-  margin: 0;
+
+  background: var(--color-ivory);
   color: var(--color-text-primary);
-  background: var(--color-surface-light);
+
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-body);
+  line-height: var(--line-height-normal);
+
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+
+  overflow-x: clip;
 }
 
-button,
-input,
-select,
-textarea {
-  color: inherit;
-  font: inherit;
-}
-
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-a {
-  color: inherit;
-  text-decoration-thickness: var(--border-width);
-  text-underline-offset: 0.18em;
-  transition: color var(--transition-fast);
-}
-
-a:hover {
-  color: var(--color-orange);
-}
-
-img,
-picture,
-video,
-canvas,
-svg {
+main {
   display: block;
-  max-width: 100%;
+  width: 100%;
 }
 
-img,
-video {
-  height: auto;
-}
+
+/* ======================================================
+   TYPOGRAPHY
+====================================================== */
 
 h1,
 h2,
 h3,
 h4,
-p {
+h5,
+h6 {
   margin: 0;
-}
-
-h1,
-h2,
-h3,
-h4 {
+  color: inherit;
   font-family: var(--font-display);
   font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-heading);
   line-height: var(--line-height-heading);
-  text-wrap: balance;
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 h1 {
   font-size: var(--font-size-h1);
-  letter-spacing: var(--letter-spacing-tight);
 }
 
 h2 {
@@ -172,73 +190,242 @@ h4 {
 }
 
 p {
-  text-wrap: pretty;
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-relaxed);
 }
 
-small,
-.text-small {
+small {
   font-size: var(--font-size-small);
 }
 
-.text-caption {
-  font-size: var(--font-size-caption);
-  letter-spacing: var(--letter-spacing-wide);
-  line-height: var(--line-height-compact);
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-::selection {
-  color: var(--color-text-primary);
-  background: var(--color-orange);
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
-:focus-visible {
-  outline: 3px solid var(--color-orange);
-  outline-offset: 3px;
+button {
+  cursor: pointer;
 }
 
-.container,
-.container--wide {
-  width: calc(100% - 2 * var(--page-gutter));
-  margin-inline: auto;
+button:disabled {
+  cursor: not-allowed;
 }
 
-.container {
-  max-width: var(--container-max);
+
+/* ======================================================
+   MEDIA
+====================================================== */
+
+img,
+picture,
+video,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
 }
 
-.container--wide {
-  max-width: var(--container-wide);
+img {
+  height: auto;
 }
+
+
+/* ======================================================
+   GLOBAL CONTAINERS
+====================================================== */
+
+/* Full-width section background */
 
 .container-fluid {
   width: 100%;
-  padding-inline: var(--page-gutter);
+  max-width: 100%;
+  min-width: 0;
+  margin-inline: auto;
 }
+
+/* Standard content: 80% */
+
+.container {
+  width: var(--container-width);
+  max-width: var(--container-max);
+  min-width: 0;
+  margin-inline: auto;
+}
+
+/* Wider content: 80% with larger maximum */
+
+.container--wide {
+  width: var(--container-width);
+  max-width: var(--container-wide);
+  min-width: 0;
+  margin-inline: auto;
+}
+
+
+/* ======================================================
+   GLOBAL SECTION SPACING
+====================================================== */
 
 .section {
-  padding-block: var(--space-section);
+  width: 100%;
+  padding-block: var(--section-space-y);
 }
 
-.skip-link {
-  position: fixed;
-  z-index: var(--z-skip-link);
-  top: var(--space-4);
-  left: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  transform: translateY(-200%);
+.section--small {
+  width: 100%;
+  padding-block: var(--section-space-y-small);
+}
+
+
+/* ======================================================
+   SURFACE UTILITIES
+====================================================== */
+
+.surface-light {
+  background: var(--color-white);
+  color: var(--color-text-primary);
+}
+
+.surface-ivory {
+  background: var(--color-ivory);
+  color: var(--color-text-primary);
+}
+
+.surface-dark {
+  background: var(--color-charcoal);
+  color: var(--color-white);
+}
+
+
+/* ======================================================
+   TEXT UTILITIES
+====================================================== */
+
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-inverse {
   color: var(--color-text-inverse);
-  background: var(--color-surface-dark);
 }
 
-.skip-link:focus {
-  transform: translateY(0);
+.text-orange {
+  color: var(--color-orange);
 }
+
+
+/* ======================================================
+   ACCESSIBILITY
+====================================================== */
+
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 4px;
+}
+
+::selection {
+  color: var(--color-white);
+  background: var(--color-charcoal);
+}
+
+
+/* ======================================================
+   SCROLLBAR
+====================================================== */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-orange) var(--color-ivory);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-orange);
+  border-radius: var(--radius-pill);
+}
+
+
+/* ======================================================
+   RESPONSIVE DESIGN
+====================================================== */
+
+/* Laptop */
+
+@media (max-width: 1024px) {
+  :root {
+    --section-space-y: clamp(50px, 7vw, 90px);
+  }
+}
+
+/* Tablet */
+
+@media (max-width: 768px) {
+  :root {
+    --section-space-y: 60px;
+    --section-space-y-small: 40px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  :root {
+    --section-space-y: 50px;
+    --section-space-y-small: 35px;
+  }
+
+  html {
+    scroll-padding-top: 90px;
+  }
+}
+
+/* Small mobile */
+
+@media (max-width: 480px) {
+  :root {
+    --section-space-y: 45px;
+    --section-space-y-small: 30px;
+  }
+}
+
+
+/* ======================================================
+   REDUCED MOTION
+====================================================== */
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
-    scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
