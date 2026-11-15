@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Manrope, Space_Grotesk } from "next/font/google";
@@ -24,7 +25,13 @@ export const metadata: Metadata = {
     default: "Majestic Metalworks",
     template: "%s | Majestic Metalworks",
   },
+
   description: "Company website for Majestic Metalworks.",
+
+  // Single website favicon
+  icons: {
+    icon: "images/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -34,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${spaceGrotesk.variable} ${manrope.variable}`}>
+      <body
+        className={`${spaceGrotesk.variable} ${manrope.variable}`}
+      >
         {children}
       </body>
     </html>
