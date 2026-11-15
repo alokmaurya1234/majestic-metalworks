@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./cpHeader.module.scss";
 
 const COMPANY_LOGO_SRC =
@@ -28,6 +28,26 @@ const CpHeader = () => {
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  // Always return to the top when the route changes.
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  }, [pathname]);
+
+  // Also handle clicks on the current page's navigation link.
+  const handleNavigation = () => {
+    closeMenu();
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  };
+
   const isActive = (href: string) => {
     if (href === "/") {
       return pathname === "/";
@@ -45,7 +65,8 @@ const CpHeader = () => {
           href="/"
           className={styles.brand}
           aria-label="Majestic Metalworks Home"
-          onClick={closeMenu}
+          onClick={handleNavigation}
+          scroll={true}
         >
           <Image
             src={COMPANY_LOGO_SRC}
@@ -63,6 +84,8 @@ const CpHeader = () => {
             <Link
               key={item.href}
               href={item.href}
+              scroll={true}
+              onClick={handleNavigation}
               className={`${styles.navLink} ${
                 isActive(item.href) ? styles.active : ""
               }`}
@@ -73,7 +96,7 @@ const CpHeader = () => {
           ))}
         </div>
 
-        {/* Desktop Action */}
+        {/* Desktop Actions */}
         <div className={styles.actions}>
           <a
             href={`tel:${PHONE_NUMBER}`}
@@ -84,7 +107,12 @@ const CpHeader = () => {
             <span>{DISPLAY_PHONE_NUMBER}</span>
           </a>
 
-          <Link href="/contact" className={styles.quoteButton}>
+          <Link
+            href="/contact"
+            scroll={true}
+            onClick={handleNavigation}
+            className={styles.quoteButton}
+          >
             Get a Quote
             <span aria-hidden="true">↗</span>
           </Link>
@@ -119,7 +147,8 @@ const CpHeader = () => {
           <Link
             key={item.href}
             href={item.href}
-            onClick={closeMenu}
+            scroll={true}
+            onClick={handleNavigation}
             className={`${styles.mobileNavLink} ${
               isActive(item.href) ? styles.mobileActive : ""
             }`}
@@ -130,16 +159,21 @@ const CpHeader = () => {
           </Link>
         ))}
 
-        <a href={`tel:${PHONE_NUMBER}`} className={styles.mobilePhone}>
+        <a
+          href={`tel:${PHONE_NUMBER}`}
+          className={styles.mobilePhone}
+        >
           ☎ {DISPLAY_PHONE_NUMBER}
         </a>
 
         <Link
           href="/contact"
+          scroll={true}
           className={styles.mobileQuoteButton}
-          onClick={closeMenu}
+          onClick={handleNavigation}
         >
-          Get a Quote <span aria-hidden="true">↗</span>
+          Get a Quote
+          <span aria-hidden="true">↗</span>
         </Link>
       </div>
     </header>
