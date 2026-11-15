@@ -1,0 +1,512 @@
+
+.clientsSection {
+  padding-block: clamp(65px, 8vw, 105px);
+
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+
+  .clientsContainer {
+    min-width: 0;
+  }
+
+  .clientsHeader {
+    max-width: 800px;
+    margin: 0 auto 35px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    margin-bottom: 19px;
+
+    color: var(--color-orange);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+
+    span {
+      width: 27px;
+      height: 2px;
+      background: var(--color-orange);
+    }
+  }
+
+  .sectionTitle {
+    margin: 0;
+
+    color: var(--color-charcoal);
+    font-family: var(--font-display);
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.05em;
+
+    span {
+      color: var(--color-orange);
+    }
+  }
+
+  .sectionDescription {
+    max-width: 590px;
+    margin: 15px auto 0;
+
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .carouselStage {
+    position: relative;
+    isolation: isolate;
+
+    width: 100%;
+    height: clamp(400px, 43vw, 510px);
+
+    overflow: hidden;
+  }
+
+  .clientCard {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    display: block;
+
+    width: clamp(230px, 25vw, 310px);
+    aspect-ratio: 3 / 4;
+
+    padding: 0;
+    overflow: hidden;
+
+    appearance: none;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md);
+
+    background: var(--color-charcoal);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.16);
+
+    cursor: pointer;
+
+    transform-origin: center center;
+
+    transition:
+      transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 500ms ease,
+      filter 500ms ease,
+      box-shadow 500ms ease;
+
+    img {
+      object-fit: cover;
+      object-position: center;
+
+      user-select: none;
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--color-orange);
+      outline-offset: 4px;
+    }
+  }
+
+  /* Active centre card */
+
+  .active {
+    z-index: 5;
+
+    opacity: 1;
+    filter: none;
+
+    transform:
+      translate(-50%, -50%)
+      translateX(0)
+      scale(1);
+
+    box-shadow: 0 22px 42px rgba(0, 0, 0, 0.2);
+  }
+
+  /* First layer: Left and right */
+
+  .left {
+    z-index: 4;
+
+    opacity: 0.94;
+    filter: brightness(0.68);
+
+    transform:
+      translate(-50%, -50%)
+      translateX(-68%)
+      scale(0.87);
+  }
+
+  .right {
+    z-index: 4;
+
+    opacity: 0.94;
+    filter: brightness(0.68);
+
+    transform:
+      translate(-50%, -50%)
+      translateX(68%)
+      scale(0.87);
+  }
+
+  /* Second layer: Outer left and right */
+
+  .farLeft {
+    z-index: 3;
+
+    opacity: 0.78;
+    filter: brightness(0.48);
+
+    transform:
+      translate(-50%, -50%)
+      translateX(-132%)
+      scale(0.72);
+  }
+
+  .farRight {
+    z-index: 3;
+
+    opacity: 0.78;
+    filter: brightness(0.48);
+
+    transform:
+      translate(-50%, -50%)
+      translateX(132%)
+      scale(0.72);
+  }
+
+  .cardOverlay {
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.02) 35%,
+      rgba(0, 0, 0, 0.20) 65%,
+      rgba(0, 0, 0, 0.82) 100%
+    );
+
+    pointer-events: none;
+  }
+
+  .cardContent {
+    position: absolute;
+    right: 20px;
+    bottom: 22px;
+    left: 20px;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+
+    text-align: left;
+  }
+
+  .cardLabel {
+    color: var(--color-orange);
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+
+  .clientName {
+    display: block;
+    max-width: 100%;
+
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.035em;
+  }
+
+  /* Bottom carousel controls */
+
+  .carouselControls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    margin-top: 17px;
+  }
+
+  .arrowButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+
+    color: var(--color-charcoal);
+    background: var(--color-white);
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: var(--radius-sm);
+
+    box-shadow: var(--shadow-soft);
+
+    cursor: pointer;
+
+    transition:
+      color var(--transition-normal),
+      background var(--transition-normal),
+      border-color var(--transition-normal),
+      transform var(--transition-normal);
+
+    span {
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    &:hover {
+      color: var(--color-white);
+      background: var(--color-orange);
+      border-color: var(--color-orange);
+      transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-orange);
+      outline-offset: 3px;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+
+  .paginationItem {
+    width: 19px;
+    height: 4px;
+
+    padding: 0;
+
+    background: rgba(17, 17, 17, 0.19);
+    border: 0;
+    border-radius: var(--radius-pill);
+
+    cursor: pointer;
+
+    transition:
+      width var(--transition-normal),
+      background var(--transition-normal);
+
+    &:hover {
+      background: var(--color-orange);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-orange);
+      outline-offset: 4px;
+    }
+  }
+
+  .paginationActive {
+    width: 38px;
+    background: var(--color-orange);
+  }
+
+  .imageNote {
+    margin-top: 23px;
+
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  @media (max-width: 1024px) {
+    .carouselStage {
+      height: 440px;
+    }
+
+    .clientCard {
+      width: 270px;
+    }
+
+    .farLeft {
+      transform:
+        translate(-50%, -50%)
+        translateX(-120%)
+        scale(0.7);
+    }
+
+    .farRight {
+      transform:
+        translate(-50%, -50%)
+        translateX(120%)
+        scale(0.7);
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding-block: 55px;
+
+    .clientsHeader {
+      margin-bottom: 20px;
+    }
+
+    .sectionTitle {
+      font-size: clamp(32px, 6vw, 42px);
+    }
+
+    .sectionDescription {
+      max-width: 100%;
+      font-size: 13px;
+    }
+
+    .carouselStage {
+      height: 390px;
+    }
+
+    .clientCard {
+      width: 245px;
+    }
+
+    .left {
+      transform:
+        translate(-50%, -50%)
+        translateX(-63%)
+        scale(0.78);
+    }
+
+    .right {
+      transform:
+        translate(-50%, -50%)
+        translateX(63%)
+        scale(0.78);
+    }
+
+    .farLeft {
+      transform:
+        translate(-50%, -50%)
+        translateX(-116%)
+        scale(0.64);
+    }
+
+    .farRight {
+      transform:
+        translate(-50%, -50%)
+        translateX(116%)
+        scale(0.64);
+    }
+
+    .cardContent {
+      right: 17px;
+      bottom: 18px;
+      left: 17px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding-block: 45px;
+
+    .eyebrow {
+      margin-bottom: 15px;
+      font-size: 9px;
+    }
+
+    .sectionTitle {
+      font-size: 30px;
+    }
+
+    .sectionDescription {
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .carouselStage {
+      height: 350px;
+    }
+
+    .clientCard {
+      width: min(225px, 72%);
+    }
+
+    .left {
+      transform:
+        translate(-50%, -50%)
+        translateX(-60%)
+        scale(0.73);
+    }
+
+    .right {
+      transform:
+        translate(-50%, -50%)
+        translateX(60%)
+        scale(0.73);
+    }
+
+    .farLeft,
+    .farRight {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cardContent {
+      right: 15px;
+      bottom: 16px;
+      left: 15px;
+    }
+
+    .clientName {
+      font-size: 18px;
+    }
+
+    .carouselControls {
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .arrowButton {
+      width: 42px;
+      height: 42px;
+    }
+
+    .pagination {
+      gap: 5px;
+    }
+
+    .paginationItem {
+      width: 14px;
+    }
+
+    .paginationActive {
+      width: 29px;
+    }
+
+    .imageNote {
+      max-width: 290px;
+      margin: 18px auto 0;
+      font-size: 9px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clientsSection {
+    .clientCard,
+    .arrowButton,
+    .paginationItem {
+      transition: none;
+    }
+  }
+}
