@@ -5,6 +5,7 @@ import CpHeader from "../components/cp-header";
 import CpPageBanner from "../components/cp-page-banner";
 import CpHomeAbout from "../components/cp-home-about";
 import CpHomeApproach from "../components/cp-home-approach";
+import CpFooter from "../components/cp-footer";
 
 export const metadata: Metadata = {
   title: "About Us | Majestic Metal Works, Jalandhar",
@@ -34,6 +35,7 @@ export default function AboutPage() {
         {/* Our Approach */}
         <CpHomeApproach />
       </main>
+      <CpFooter />
     </>
   );
 }

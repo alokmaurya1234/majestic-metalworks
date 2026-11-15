@@ -1,11 +1,11 @@
 
 .hero {
+  --hero-min-height: 100vh;
+  --hero-min-height: 100svh;
+
   position: relative;
   isolation: isolate;
-
-  min-height: 92vh;
-  min-height: 92svh;
-
+  min-height: var(--hero-min-height);
   overflow: hidden;
 
   background: var(--color-charcoal);
@@ -51,15 +51,15 @@
   display: flex;
   align-items: flex-start;
 
-  min-height: inherit;
+  min-height: var(--hero-min-height);
+  box-sizing: border-box;
 
-  padding-top: clamp(220px, 27vh, 290px);
-  padding-bottom: 55px;
+  padding: 175px 0 105px;
 }
 
 .heroContent {
   width: 100%;
-  max-width: 900px;
+  max-width: 950px;
   min-width: 0;
 }
 
@@ -67,20 +67,20 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
 
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 
   color: var(--color-orange);
 
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 
   .eyebrowLine {
-    width: 34px;
+    width: 36px;
     height: 2px;
     flex-shrink: 0;
 
@@ -100,15 +100,16 @@
   display: flex;
   flex-direction: column;
 
+  max-width: 950px;
   margin: 0;
 
   color: var(--color-white);
 
   font-family: var(--font-display);
-  font-size: clamp(48px, 5vw, 82px);
+  font-size: clamp(3.4rem, 6.2vw, 6.1rem);
   font-weight: 600;
-  line-height: 1.06;
-  letter-spacing: -0.06em;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
 
   span {
     color: var(--color-orange);
@@ -116,11 +117,10 @@
 }
 
 .heroDescription {
-  max-width: 590px;
+  max-width: 640px;
+  margin: 28px 0 0;
 
-  margin-top: 26px;
-
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.86);
 
   font-family: var(--font-body);
   font-size: 16px;
@@ -128,12 +128,15 @@
   line-height: 1.8;
 }
 
-/* Laptop */
-
+/* Tablet */
 @media (max-width: 1024px) {
+  .hero {
+    --hero-min-height: clamp(480px, 20vh, 620px);
+    --hero-min-height: clamp(480px, 20svh, 620px);
+  }
+
   .heroContainer {
-    padding-top: clamp(205px, 25vh, 250px);
-    padding-bottom: 45px;
+    padding: 145px 0 65px;
   }
 
   .heroContent {
@@ -141,7 +144,11 @@
   }
 
   .heroTitle {
-    font-size: clamp(44px, 6vw, 66px);
+    font-size: clamp(3rem, 7vw, 5rem);
+  }
+
+  .heroDescription {
+    max-width: 560px;
   }
 
   .heroOverlay {
@@ -155,18 +162,16 @@
   }
 }
 
-
-/* Tablet */
-
-@media (max-width: 768px) {
+/* Mobile */
+@media (max-width: 767px) {
   .hero {
-    min-height: clamp(580px, 14svh, 700px);
+    --hero-min-height: clamp(420px, 14vh, 500px);
+    --hero-min-height: clamp(420px, 14svh, 500px);
   }
 
   .heroContainer {
-    min-height: inherit;
-    padding-top: 145px;
-    padding-bottom: 32px;
+    min-height: var(--hero-min-height);
+    padding: 120px 0 45px;
   }
 
   .heroImage {
@@ -183,67 +188,28 @@
   }
 
   .eyebrow {
-    gap: 8px;
-    margin-bottom: 20px;
-    font-size: 9px;
-    letter-spacing: 0.10em;
+    gap: 10px;
+    margin-bottom: 24px;
+
+    font-size: 10px;
+    letter-spacing: 0.1em;
 
     .eyebrowLine {
-      width: 24px;
+      width: 26px;
     }
   }
 
   .heroTitle {
-    font-size: clamp(30px, 7.4vw, 44px);
-    line-height: 1.1;
-    letter-spacing: -0.05em;
+    font-size: clamp(2.7rem, 10vw, 4rem);
+    line-height: 1.08;
+    letter-spacing: -0.045em;
   }
 
   .heroDescription {
     max-width: 100%;
-    margin-top: 17px;
+    margin-top: 22px;
+
     font-size: 14px;
-    line-height: 1.65;
-  }
-}
-
-/* Mobile */
-
-@media (max-width: 480px) {
-  .hero {
-    min-height: clamp(440px, 10svh, 640px);
-  }
-
-  .heroContainer {
-    min-height: inherit;
-    padding-top: 135px;
-    padding-bottom: 28px;
-  }
-
-  .heroImage {
-    object-position: 68% center;
-  }
-
-  .eyebrow {
-    gap: 6px;
-    margin-bottom: 17px;
-    font-size: 8px;
-    letter-spacing: 0.07em;
-
-    .eyebrowLine {
-      width: 20px;
-    }
-  }
-
-  .heroTitle {
-    font-size: clamp(28px, 7.2vw, 34px);
-    line-height: 1.12;
-    letter-spacing: -0.05em;
-  }
-
-  .heroDescription {
-    margin-top: 15px;
-    font-size: 13px;
-    line-height: 1.65;
+    line-height: 1.7;
   }
 }

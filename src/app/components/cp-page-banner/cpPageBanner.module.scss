@@ -1,10 +1,15 @@
 
 .banner {
+  --page-banner-height: 100vh;
+  --page-banner-height: 100svh;
+
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: center;
-  min-height: clamp(480px, 62svh, 680px);
+  width: 100%;
+  min-height: var(--page-banner-height);
+  box-sizing: border-box;
   overflow: hidden;
   background: #111111;
   color: #ffffff;
@@ -40,7 +45,11 @@
 
   .contentWrapper {
     position: relative;
+    display: flex;
+    align-items: center;
     width: 100%;
+    min-height: var(--page-banner-height);
+    box-sizing: border-box;
     padding: 175px 0 105px;
   }
 
@@ -66,8 +75,8 @@
     display: block;
     width: 36px;
     height: 2px;
-    background: #f36b24;
     flex-shrink: 0;
+    background: #f36b24;
   }
 
   .title {
@@ -102,7 +111,8 @@
 /* Tablet */
 @media (max-width: 1024px) {
   .banner {
-    min-height: 540px;
+    --page-banner-height: clamp(480px, 20vh, 620px);
+    --page-banner-height: clamp(480px, 20svh, 620px);
 
     .title {
       font-size: clamp(3rem, 7vw, 5rem);
@@ -111,16 +121,21 @@
     .description {
       max-width: 560px;
     }
+
+    .contentWrapper {
+      padding: 145px 0 65px;
+    }
   }
 }
 
 /* Mobile */
 @media (max-width: 767px) {
   .banner {
-    min-height: 500px;
+    --page-banner-height: clamp(420px, 14vh, 500px);
+    --page-banner-height: clamp(420px, 14svh, 500px);
 
     .contentWrapper {
-      padding: 155px 0 75px;
+      padding: 120px 0 45px;
     }
 
     .eyebrow {
@@ -141,6 +156,7 @@
     }
 
     .description {
+      max-width: 100%;
       margin-top: 22px;
       font-size: 14px;
       line-height: 1.7;

@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import CpHeader from "../components/cp-header";
 import CpPageBanner from "../components/cp-page-banner";
 import CpCatalogue from "../components/cp-catalogue";
+import CpFooter from "../components/cp-footer";
 
 export const metadata: Metadata = {
   title: "Our Catalogue | Majestic Metal Works",
@@ -69,6 +70,7 @@ export default function CataloguePage({
           <CatalogueContent searchParams={searchParams} />
         </Suspense>
       </main>
+      <CpFooter />
     </>
   );
 }
