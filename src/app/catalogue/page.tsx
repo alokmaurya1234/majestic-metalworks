@@ -1,7 +1,16 @@
 
+import type { Metadata } from "next";
 import { Suspense } from "react";
+
 import CpHeader from "../components/cp-header";
+import CpPageBanner from "../components/cp-page-banner";
 import CpCatalogue from "../components/cp-catalogue";
+
+export const metadata: Metadata = {
+  title: "Our Catalogue | Majestic Metal Works",
+  description:
+    "Explore stainless steel railings, glass railings, sliding gates, automated gates, glass solutions and custom metalwork by Majestic Metal Works, Jalandhar.",
+};
 
 interface CataloguePageProps {
   searchParams: Promise<{
@@ -28,20 +37,38 @@ export default function CataloguePage({
     <>
       <CpHeader />
 
-      <Suspense
-        fallback={
-          <div className="container-fluid surface-ivory">
-            <div
-              className="container"
-              style={{ paddingTop: "155px", minHeight: "60vh" }}
-            >
-              <p role="status">Loading catalogue...</p>
+      <main>
+        {/* Catalogue Banner */}
+        <CpPageBanner
+          eyebrow="EXPLORE OUR CATALOGUE"
+          title="Explore Our"
+          highlight="Collection."
+          description="Discover architectural metalwork, elegant railing designs, gates and glass solutions crafted for modern spaces."
+          imageSrc="/images/Automation-gate1.jpg"
+          imageAlt="Automated metal gate by Majestic Metal Works"
+          imagePosition="center"
+        />
+
+        {/* Catalogue Content */}
+        <Suspense
+          fallback={
+            <div className="container-fluid surface-ivory">
+              <div
+                className="container"
+                style={{
+                  paddingTop: "80px",
+                  paddingBottom: "80px",
+                  minHeight: "40vh",
+                }}
+              >
+                <p role="status">Loading catalogue...</p>
+              </div>
             </div>
-          </div>
-        }
-      >
-        <CatalogueContent searchParams={searchParams} />
-      </Suspense>
+          }
+        >
+          <CatalogueContent searchParams={searchParams} />
+        </Suspense>
+      </main>
     </>
   );
 }
