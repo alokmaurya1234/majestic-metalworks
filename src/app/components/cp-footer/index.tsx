@@ -50,7 +50,7 @@ const CpFooter = () => {
               aria-label="Majestic Metal Works homepage"
             >
               <Image
-                src="/images/branding/cropped-Majestic-Metal-works-320x74.png"
+                src="/images/branding/cropped-Majestic-Metal-works.png"
                 alt="Majestic Metal Works logo"
                 width={220}
                 height={51}
