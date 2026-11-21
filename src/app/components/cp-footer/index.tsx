@@ -24,6 +24,13 @@ const serviceLinks = [
   { label: "Jhula", id: "jhula" },
 ];
 
+const teamContacts = [
+  { name: "Daya Ram", phone: "9814426117", displayPhone: "+91 98144 26117" },
+  { name: "Rahul", phone: "9478929210", displayPhone: "+91 94789 29210" },
+  { name: "Sunny", phone: "9814911245", displayPhone: "+91 98149 11245" },
+  { name: "Baljinder", phone: "6283804063", displayPhone: "+91 62838 04063" },
+];
+
 const address =
   "Milk Plant, Near ASR Bypass, C.J.S. Public School, Jalandhar, Punjab - 144008, India";
 
@@ -41,8 +48,7 @@ const CpFooter = () => {
     <footer className={`container-fluid ${styles.footerSection}`}>
       <div className={`container ${styles.footerContainer}`}>
         <div className={styles.footerMain}>
-          {/* Company Information */}
-
+          {/* Company information */}
           <div className={styles.brandColumn}>
             <Link
               href="/"
@@ -50,7 +56,7 @@ const CpFooter = () => {
               aria-label="Majestic Metal Works homepage"
             >
               <Image
-                src="/images/branding/cropped-Majestic-Metal-works.png"
+                src="/images/branding/majestic-metalworks-since-1990-2.png"
                 alt="Majestic Metal Works logo"
                 width={220}
                 height={51}
@@ -64,13 +70,13 @@ const CpFooter = () => {
             </h2>
 
             <p className={styles.brandDescription}>
-              Majestic Metal Works provides custom metal
-              fabrication, stainless steel railings, gates
-              and glass solutions for residential and
-              commercial spaces.
+              Majestic Metal Works provides custom metal fabrication,
+              stainless steel railings, gates and glass solutions for
+              residential and commercial spaces.
             </p>
 
             <div className={styles.socialLinks}>
+              {/* Phone */}
               <a
                 href="tel:+919814426117"
                 className={styles.socialLink}
@@ -87,6 +93,7 @@ const CpFooter = () => {
                 </svg>
               </a>
 
+              {/* WhatsApp */}
               <a
                 href="https://wa.me/919814426117"
                 target="_blank"
@@ -111,6 +118,7 @@ const CpFooter = () => {
                 </svg>
               </a>
 
+              {/* Instagram */}
               <a
                 href="https://www.instagram.com/majestic_metal117/"
                 target="_blank"
@@ -135,10 +143,16 @@ const CpFooter = () => {
                     stroke="currentColor"
                     strokeWidth="1.7"
                   />
-                  <circle cx="17.5" cy="6.8" r="1" fill="currentColor" />
+                  <circle
+                    cx="17.5"
+                    cy="6.8"
+                    r="1"
+                    fill="currentColor"
+                  />
                 </svg>
               </a>
 
+              {/* Email */}
               <a
                 href="mailto:majesticworks10@gmail.com"
                 className={styles.socialLink}
@@ -163,11 +177,48 @@ const CpFooter = () => {
                   />
                 </svg>
               </a>
+
+              {/* YouTube */}
+              <a
+                href="https://www.youtube.com/@majesticmetalworks117"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label="Majestic Metal Works YouTube"
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect
+                    x="2.5"
+                    y="5"
+                    width="19"
+                    height="14"
+                    rx="4"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                  />
+                  <path
+                    d="m10 9 5 3-5 3V9Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </a>
+
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/profile.php?id=100080169324624&rdid=dmF44a0TvaQr1sGk&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18sRC9r1Z4%2F#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label="Majestic Metal Works Facebook"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.5 1.6-1.5h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4Z" />
+                </svg>
+              </a>
             </div>
           </div>
 
-          {/* Navigation Links */}
-
+          {/* Navigation links */}
           <div className={styles.footerColumn}>
             <h3 className={styles.columnTitle}>Explore</h3>
 
@@ -180,15 +231,16 @@ const CpFooter = () => {
             </ul>
           </div>
 
-          {/* Service Links */}
-
+          {/* Service links */}
           <div className={styles.footerColumn}>
             <h3 className={styles.columnTitle}>Our Services</h3>
 
             <ul>
               {serviceLinks.map((item) => (
                 <li key={item.id}>
-                  <Link href={`/catalogue?category=${item.id}`}>
+                  <Link
+                    href={`/catalogue?category=${encodeURIComponent(item.id)}`}
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -196,8 +248,7 @@ const CpFooter = () => {
             </ul>
           </div>
 
-          {/* Workshop Location */}
-
+          {/* Workshop location and contact information */}
           <div className={styles.locationColumn}>
             <h3 className={styles.columnTitle}>Visit Our Workshop</h3>
 
@@ -257,12 +308,21 @@ const CpFooter = () => {
               />
             </div>
 
-            <a
-              href="tel:+919814426117"
-              className={styles.contactItem}
-            >
-              +91 98144 26117
-            </a>
+            {/* Team phone numbers */}
+            <div className={styles.teamContacts}>
+              <h4 className={styles.teamContactsTitle}>Contact Our Team</h4>
+
+              <ul>
+                {teamContacts.map((contact) => (
+                  <li key={contact.phone}>
+                    <span>{contact.name}</span>
+                    <a href={`tel:+91${contact.phone}`}>
+                      {contact.displayPhone}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <a
               href="mailto:majesticworks10@gmail.com"
@@ -279,11 +339,28 @@ const CpFooter = () => {
             >
               @majestic_metal117
             </a>
+
+            <a
+              href="https://www.youtube.com/@majesticmetalworks117"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.contactItem}
+            >
+              YouTube Channel
+            </a>
+
+            <a
+              href="https://www.facebook.com/profile.php?id=100080169324624&rdid=dmF44a0TvaQr1sGk&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18sRC9r1Z4%2F#"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.contactItem}
+            >
+              Facebook Page
+            </a>
           </div>
         </div>
 
-        {/* Local SEO Description */}
-
+        {/* Local SEO description */}
         <div className={styles.localDescription}>
           <p>
             Looking for stainless steel railings, glass railings,
@@ -294,7 +371,6 @@ const CpFooter = () => {
         </div>
 
         {/* Copyright */}
-
         <div className={styles.footerBottom}>
           <p>
             © {CURRENT_YEAR} Majestic Metal Works. All rights reserved.

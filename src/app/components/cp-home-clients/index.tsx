@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./cpHomeClients.module.scss";
 
@@ -16,13 +16,13 @@ const clientItems: ClientItem[] = [
   {
     id: "itc",
     name: "ITC",
-    image: "/images/clients/itc.jpg",
+    image: "/images/clients/itc.jpeg",
     imageAlt: "Illustrative commercial architecture photograph",
   },
   {
     id: "reliance",
     name: "Reliance Group",
-    image: "/images/clients/reliance-group.jpeg",
+    image: "/images/clients/reliance-group1.jpeg",
     imageAlt: "Illustrative industrial architecture photograph",
   },
   {
@@ -33,8 +33,8 @@ const clientItems: ClientItem[] = [
   },
   {
     id: "iit",
-    name: "IIT",
-    image: "/images/clients/iit.jpg",
+    name: "ITI Mardi",
+    image: "/images/clients/iti.jpeg",
     imageAlt: "Illustrative institutional architecture photograph",
   },
   {
@@ -53,19 +53,27 @@ const positionClasses: Record<number, string> = {
   2: styles.farRight,
 };
 
+const AUTO_SLIDE_INTERVAL = 2000;
+
 const CpHomeClients = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-
   const totalClients = clientItems.length;
+
+  // Automatically move the carousel from left to right.
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current - 1 + totalClients) % totalClients);
+    }, AUTO_SLIDE_INTERVAL);
+
+    return () => window.clearInterval(interval);
+  }, [totalClients]);
 
   const showNext = () => {
     setActiveIndex((current) => (current + 1) % totalClients);
   };
 
   const showPrevious = () => {
-    setActiveIndex(
-      (current) => (current - 1 + totalClients) % totalClients
-    );
+    setActiveIndex((current) => (current - 1 + totalClients) % totalClients);
   };
 
   const getRelativePosition = (index: number) => {
@@ -89,7 +97,6 @@ const CpHomeClients = () => {
       aria-labelledby="clients-title"
     >
       <div className={`container ${styles.clientsContainer}`}>
-
         <header className={styles.clientsHeader}>
           <div className={styles.eyebrow}>
             <span />
@@ -103,8 +110,8 @@ const CpHomeClients = () => {
           </h2>
 
           <p className={styles.sectionDescription}>
-            A selection of organizations featured in
-            Majestic Metal Works&apos; existing client portfolio.
+            A selection of organizations featured in Majestic Metal Works&apos;
+            existing client portfolio.
           </p>
         </header>
 
@@ -121,9 +128,7 @@ const CpHomeClients = () => {
               <button
                 type="button"
                 key={client.id}
-                className={`${styles.clientCard} ${
-                  positionClasses[offset]
-                }`}
+                className={`${styles.clientCard} ${positionClasses[offset]}`}
                 onClick={() => setActiveIndex(index)}
                 aria-label={`Show ${client.name}`}
                 aria-pressed={isActive}
@@ -175,9 +180,7 @@ const CpHomeClients = () => {
                 type="button"
                 key={client.id}
                 className={`${styles.paginationItem} ${
-                  activeIndex === index
-                    ? styles.paginationActive
-                    : ""
+                  activeIndex === index ? styles.paginationActive : ""
                 }`}
                 onClick={() => setActiveIndex(index)}
                 aria-label={`Show ${client.name}`}
@@ -196,11 +199,10 @@ const CpHomeClients = () => {
           </button>
         </div>
 
-        <p className={styles.imageNote}>
+        {/* <p className={styles.imageNote}>
           Client names are taken from the existing company website.
           Photographs are temporary illustrative placeholders.
-        </p>
-
+        </p> */}
       </div>
     </section>
   );

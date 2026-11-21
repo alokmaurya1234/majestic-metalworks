@@ -55,6 +55,7 @@
     span {
       width: 28px;
       height: 2px;
+      flex-shrink: 0;
       background: var(--color-orange);
     }
   }
@@ -131,8 +132,8 @@
     }
 
     &:hover {
-      background: #FF8247;
-      border-color: #FF8247;
+      background: #ff8247;
+      border-color: #ff8247;
       transform: translateY(-2px);
 
       span {
@@ -149,6 +150,7 @@
   .socialLinks {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 13px;
 
     margin-top: 7px;
@@ -159,14 +161,17 @@
     align-items: center;
     justify-content: center;
 
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
 
     color: var(--color-white);
     background: rgba(255, 255, 255, 0.07);
 
     border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 50%;
+
+    text-decoration: none;
 
     transition:
       color var(--transition-normal),
@@ -175,8 +180,8 @@
       transform var(--transition-normal);
 
     svg {
-      width: 19px;
-      height: 19px;
+      width: 20px;
+      height: 20px;
     }
 
     &:hover {
@@ -193,6 +198,8 @@
   }
 
   .socialCaption {
+    margin: 0;
+
     color: rgba(255, 255, 255, 0.52);
     font-family: var(--font-body);
     font-size: 11px;
@@ -215,7 +222,8 @@
     &::after {
       content: "";
       position: absolute;
-      border: 1px solid rgba(243, 107, 36, 0.10);
+
+      border: 1px solid rgba(243, 107, 36, 0.1);
       border-radius: 50%;
     }
 
@@ -228,6 +236,8 @@
     }
   }
 
+  /* Laptop and Tablet */
+
   @media (max-width: 1024px) {
     .contactPanel {
       grid-template-columns: 1.1fr 0.9fr;
@@ -238,7 +248,18 @@
     .sectionTitle {
       font-size: clamp(34px, 4vw, 46px);
     }
+
+    .socialLinks {
+      gap: 10px;
+    }
+
+    .socialLink {
+      width: 44px;
+      height: 44px;
+    }
   }
+
+  /* Tablet and Mobile */
 
   @media (max-width: 768px) {
     padding-block: 55px;
@@ -267,10 +288,13 @@
       top: auto;
       bottom: -220px;
       right: -130px;
+
       width: 300px;
       height: 300px;
     }
   }
+
+  /* Mobile */
 
   @media (max-width: 480px) {
     padding-block: 45px;
@@ -301,9 +325,18 @@
       font-size: 12px;
     }
 
+    .socialLinks {
+      gap: 9px;
+    }
+
     .socialLink {
       width: 42px;
       height: 42px;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
     }
   }
 }

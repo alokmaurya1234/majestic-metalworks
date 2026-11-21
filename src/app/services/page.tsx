@@ -25,11 +25,11 @@ export default function ServicesPage() {
                     title="Metalwork for"
                     highlight="Modern Living."
                     description="Explore our architectural metalwork, stainless steel railings, gates and glass solutions."
-                    imageSrc="/images/your-services-banner1.jpg"
+                    imageSrc="/images/your-services-banner2.jpg"
                     imageAlt="Architectural metalwork and modern glass railing"
                 />
                 <CpHomeApproach />
-                <CpHomeProducts />
+                <CpHomeProducts showAllCategories />
                 
                 <CpHomeContact />
             </main>

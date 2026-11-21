@@ -17,7 +17,10 @@ const CpHomeContact = () => {
               LET&apos;S BUILD SOMETHING TOGETHER
             </div>
 
-            <h2 id="contact-title" className={styles.sectionTitle}>
+            <h2
+              id="contact-title"
+              className={styles.sectionTitle}
+            >
               Have a project in mind?
               <span> Let&apos;s build something that lasts.</span>
             </h2>
@@ -31,16 +34,20 @@ const CpHomeContact = () => {
           </div>
 
           <div className={styles.contactActions}>
-            <Link href="/contact" className={styles.primaryAction}>
+            <Link
+              href="/contact"
+              className={styles.primaryAction}
+            >
               Let&apos;s Discuss
               <span aria-hidden="true">↗</span>
             </Link>
 
             <div className={styles.socialLinks}>
+              {/* Phone */}
               <a
                 href="tel:+919814426117"
                 className={styles.socialLink}
-                aria-label="Call Majestic Metalworks"
+                aria-label="Call Majestic Metal Works"
               >
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path
@@ -53,12 +60,13 @@ const CpHomeContact = () => {
                 </svg>
               </a>
 
+              {/* Instagram */}
               <a
                 href="https://www.instagram.com/majestic_metal117/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}
-                aria-label="Visit Majestic Metalworks on Instagram"
+                aria-label="Visit Majestic Metal Works on Instagram"
               >
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <rect
@@ -77,16 +85,22 @@ const CpHomeContact = () => {
                     stroke="currentColor"
                     strokeWidth="1.7"
                   />
-                  <circle cx="17.5" cy="6.8" r="1" fill="currentColor" />
+                  <circle
+                    cx="17.5"
+                    cy="6.8"
+                    r="1"
+                    fill="currentColor"
+                  />
                 </svg>
               </a>
 
+              {/* Email */}
               <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=majesticworks10%40gmail.com&su=Project%20Enquiry%20-%20Majestic%20Metalworks"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}
-                aria-label="Email Majestic Metalworks through Gmail"
+                aria-label="Email Majestic Metal Works"
               >
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <rect
@@ -105,6 +119,44 @@ const CpHomeContact = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
+                </svg>
+              </a>
+
+              {/* YouTube */}
+              <a
+                href="https://www.youtube.com/@majesticmetalworks117"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label="Visit Majestic Metal Works on YouTube"
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect
+                    x="2.5"
+                    y="5"
+                    width="19"
+                    height="14"
+                    rx="4"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                  />
+                  <path
+                    d="m10 9 5 3-5 3V9Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </a>
+
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/profile.php?id=100080169324624&rdid=dmF44a0TvaQr1sGk&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18sRC9r1Z4%2F#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label="Visit Majestic Metal Works on Facebook"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.5 1.6-1.5h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4Z" />
                 </svg>
               </a>
             </div>

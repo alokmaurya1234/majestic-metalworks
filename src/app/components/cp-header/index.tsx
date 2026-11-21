@@ -4,11 +4,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
 import styles from "./cpHeader.module.scss";
 
 const COMPANY_LOGO_SRC =
-  "/images/branding/cropped-Majestic-Metal-works.png";
+  "/images/branding/majestic-metalworks-since-1990-2.png";
 
 const PHONE_NUMBER = "+919814426117";
 const DISPLAY_PHONE_NUMBER = "+91 98144 26117";
@@ -28,26 +29,6 @@ const CpHeader = () => {
 
   const closeMenu = () => setIsMenuOpen(false);
 
-  // Always return to the top when the route changes.
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-  }, [pathname]);
-
-  // Also handle clicks on the current page's navigation link.
-  const handleNavigation = () => {
-    closeMenu();
-
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-  };
-
   const isActive = (href: string) => {
     if (href === "/") {
       return pathname === "/";
@@ -58,21 +39,22 @@ const CpHeader = () => {
 
   return (
     <header className={styles.header}>
-      <nav className={styles.navbar} aria-label="Main navigation">
-
-        {/* Company Logo */}
+      <nav
+        className={styles.navbar}
+        aria-label="Main navigation"
+      >
+        {/* Company Logo Capsule */}
         <Link
           href="/"
           className={styles.brand}
-          aria-label="Majestic Metalworks Home"
-          onClick={handleNavigation}
-          scroll={true}
+          aria-label="Majestic Metal Works Home"
+          onClick={closeMenu}
         >
           <Image
             src={COMPANY_LOGO_SRC}
-            alt="Majestic Metalworks"
+            alt="Majestic Metal Works Since 1990"
             width={320}
-            height={74}
+            height={107}
             priority
             className={styles.logo}
           />
@@ -84,12 +66,13 @@ const CpHeader = () => {
             <Link
               key={item.href}
               href={item.href}
-              scroll={true}
-              onClick={handleNavigation}
+              onClick={closeMenu}
               className={`${styles.navLink} ${
                 isActive(item.href) ? styles.active : ""
               }`}
-              aria-current={isActive(item.href) ? "page" : undefined}
+              aria-current={
+                isActive(item.href) ? "page" : undefined
+              }
             >
               {item.label}
             </Link>
@@ -109,8 +92,7 @@ const CpHeader = () => {
 
           <Link
             href="/contact"
-            scroll={true}
-            onClick={handleNavigation}
+            onClick={closeMenu}
             className={styles.quoteButton}
           >
             Get a Quote
@@ -125,7 +107,9 @@ const CpHeader = () => {
             isMenuOpen ? styles.menuToggleOpen : ""
           }`}
           onClick={() => setIsMenuOpen((open) => !open)}
-          aria-label={isMenuOpen ? "Close navigation" : "Open navigation"}
+          aria-label={
+            isMenuOpen ? "Close navigation" : "Open navigation"
+          }
           aria-expanded={isMenuOpen}
           aria-controls="mobile-navigation"
         >
@@ -147,12 +131,13 @@ const CpHeader = () => {
           <Link
             key={item.href}
             href={item.href}
-            scroll={true}
-            onClick={handleNavigation}
+            onClick={closeMenu}
             className={`${styles.mobileNavLink} ${
               isActive(item.href) ? styles.mobileActive : ""
             }`}
-            aria-current={isActive(item.href) ? "page" : undefined}
+            aria-current={
+              isActive(item.href) ? "page" : undefined
+            }
           >
             {item.label}
             <span aria-hidden="true">↗</span>
@@ -168,9 +153,8 @@ const CpHeader = () => {
 
         <Link
           href="/contact"
-          scroll={true}
+          onClick={closeMenu}
           className={styles.mobileQuoteButton}
-          onClick={handleNavigation}
         >
           Get a Quote
           <span aria-hidden="true">↗</span>

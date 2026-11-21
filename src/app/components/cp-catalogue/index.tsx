@@ -1,206 +1,321 @@
 
+import Image from "next/image";
 import Link from "next/link";
+import type { SanityImageSource } from "@sanity/image-url";
+
+import {
+  getAllCategories,
+  getCategoryBySlug,
+} from "@/sanity/lib/catalogue";
+
+import { urlFor } from "@/sanity/lib/image";
+
+import CpCatalogueGallery from "../cp-catalogue-gallery";
+
 import styles from "./cpCatalogue.module.scss";
 
-interface Category {
-    id: string;
-    number: string;
-    title: string;
-    description: string;
+interface CategoryGalleryItem {
+  _key?: string;
+  description?: string;
+  altText?: string;
+  image?: SanityImageSource | null;
 }
 
-const categories: Category[] = [
-    {
-        id: "stainless-steel-railings",
-        number: "01",
-        title: "Stainless Steel Railings",
-        description:
-            "Stainless-steel railing solutions for residential and commercial spaces.",
-    },
-    {
-        id: "glass-railings",
-        number: "02",
-        title: "Glass Railings",
-        description:
-            "Glass railing solutions that bring openness and a clean architectural finish.",
-    },
-    {
-        id: "sliding-gates",
-        number: "03",
-        title: "Sliding Gates",
-        description:
-            "Sliding gate solutions for residential and commercial entrances.",
-    },
-    {
-        id: "automated-gates",
-        number: "04",
-        title: "Automated Gates",
-        description:
-            "Automated gate solutions for convenient and controlled access.",
-    },
-    {
-        id: "glass-solutions",
-        number: "05",
-        title: "Window & Bathroom Glass",
-        description:
-            "Glass solutions for windows and bathrooms, designed for everyday spaces.",
-    },
-    {
-        id: "jhula",
-        number: "06",
-        title: "Jhula",
-        description:
-            "Explore the company's jhula offerings for residential spaces.",
-    },
-];
+interface CatalogueGalleryImage {
+  id: string;
+  src: string;
+  alt: string;
+  description: string;
+}
+
+interface Category {
+  _id: string;
+  title: string;
+  slug: string;
+  description: string;
+  displayStatus?: "active" | "comingSoon";
+  catalogueOrder?: number;
+  coverImage?: SanityImageSource | null;
+  coverImageAlt?: string;
+  gallery?: CategoryGalleryItem[];
+}
 
 interface CpCatalogueProps {
-    selectedCategory?: string;
+  selectedCategory?: string;
 }
 
-const CpCatalogue = ({
-    selectedCategory,
+const getCategoryHref = (slug: string) =>
+  `/catalogue?category=${encodeURIComponent(
+    slug
+  )}#catalogue-gallery-${slug}`;
+
+const CpCatalogue = async ({
+  selectedCategory,
 }: CpCatalogueProps) => {
-    const activeCategory = categories.find(
-        (category) => category.id === selectedCategory
-    );
+  const categories = (await getAllCategories()) as Category[];
 
-    return (
-        <main className={`container-fluid ${styles.catalogue}`}>
-            <div className={`container ${styles.catalogueContainer}`}>
+  const activeCategory = selectedCategory
+    ? ((await getCategoryBySlug(selectedCategory)) as Category | null)
+    : null;
 
-                <header className={styles.catalogueHeader}>
-                    <div className={styles.eyebrow}>
-                        <span />
-                        MAJESTIC METALWORKS / CATALOGUE
-                    </div>
+  const activeCategoryIndex = activeCategory
+    ? categories.findIndex(
+        (category) => category.slug === activeCategory.slug
+      )
+    : -1;
 
-                    <h1>
-                        {activeCategory ? (
-                            activeCategory.title
-                        ) : (
-                            <>
-                                Explore our <span>Catalogue.</span>
-                            </>
-                        )}
-                    </h1>
+  const categoryNumber = String(
+    activeCategoryIndex >= 0 ? activeCategoryIndex + 1 : 1
+  ).padStart(2, "0");
 
-                    <p>
-                        {activeCategory
-                            ? activeCategory.description
-                            : "Explore our collection of architectural metalwork, railings, gates and glass solutions."}
-                    </p>
-                </header>
+  const galleryImages: CatalogueGalleryImage[] = (
+    activeCategory?.gallery ?? []
+  ).flatMap((item, index) => {
+    if (!item.image) return [];
 
-                {/* Catalogue Category Navigation */}
+    return [
+      {
+        id: item._key || `${activeCategory?._id}-${index}`,
+        src: urlFor(item.image)
+          .width(1800)
+          .quality(88)
+          .auto("format")
+          .url(),
+        alt:
+          item.altText?.trim() ||
+          `${activeCategory?.title} gallery image ${index + 1}`,
+        description: item.description?.trim() || "",
+      },
+    ];
+  });
 
-                <nav
-                    className={styles.categoryNavigation}
-                    aria-label="Catalogue categories"
+  return (
+    <section
+      className={`container-fluid ${styles.catalogue}`}
+      aria-labelledby="catalogue-title"
+    >
+      <div className={`container ${styles.catalogueContainer}`}>
+        <header className={styles.catalogueHeader}>
+          <div className={styles.eyebrow}>
+            <span />
+            MAJESTIC METALWORKS / CATALOGUE
+          </div>
+
+          <h1 id="catalogue-title">
+            {activeCategory ? (
+              activeCategory.title
+            ) : (
+              <>
+                Explore our <span>Catalogue.</span>
+              </>
+            )}
+          </h1>
+
+          <p>
+            {activeCategory
+              ? activeCategory.description
+              : "Explore our collection of architectural metalwork, railings, gates and glass solutions."}
+          </p>
+        </header>
+
+        <nav
+          className={styles.categoryNavigation}
+          aria-label="Catalogue categories"
+        >
+          <Link
+            href="/catalogue#catalogue-overview"
+            className={`${styles.categoryLink} ${
+              !selectedCategory ? styles.activeCategory : ""
+            }`}
+            aria-current={!selectedCategory ? "page" : undefined}
+          >
+            All Categories
+          </Link>
+
+          {categories.map((category) => (
+            <Link
+              href={getCategoryHref(category.slug)}
+              key={category._id}
+              className={`${styles.categoryLink} ${
+                activeCategory?.slug === category.slug
+                  ? styles.activeCategory
+                  : ""
+              }`}
+              aria-current={
+                activeCategory?.slug === category.slug
+                  ? "page"
+                  : undefined
+              }
+            >
+              {category.title}
+            </Link>
+          ))}
+        </nav>
+
+        {!selectedCategory && (
+          <div
+            id="catalogue-overview"
+            className={styles.categoryGrid}
+          >
+            {categories.map((category, index) => {
+              const isComingSoon =
+                category.displayStatus === "comingSoon";
+
+              const coverImageUrl = category.coverImage
+                ? urlFor(category.coverImage)
+                    .width(900)
+                    .height(675)
+                    .fit("crop")
+                    .auto("format")
+                    .url()
+                : null;
+
+              return (
+                <Link
+                  href={getCategoryHref(category.slug)}
+                  className={styles.categoryCard}
+                  key={category._id}
+                  aria-label={`View ${category.title} collection`}
                 >
-                    <Link
-                        href="/catalogue"
-                        className={`${styles.categoryLink} ${!activeCategory ? styles.activeCategory : ""
-                            }`}
-                        aria-current={!activeCategory ? "page" : undefined}
-                    >
-                        All Categories
-                    </Link>
+                  <div className={styles.categoryCardImage}>
+                    {coverImageUrl ? (
+                      <Image
+                        src={coverImageUrl}
+                        alt={
+                          category.coverImageAlt ||
+                          `${category.title} collection`
+                        }
+                        fill
+                        sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 30vw"
+                      />
+                    ) : (
+                      <div className={styles.categoryImageFallback}>
+                        {isComingSoon ? "COMING SOON" : "COLLECTION"}
+                      </div>
+                    )}
 
-                    {categories.map((category) => (
-                        <Link
-                            href={`/catalogue?category=${category.id}`}
-                            key={category.id}
-                            className={`${styles.categoryLink} ${activeCategory?.id === category.id
-                                    ? styles.activeCategory
-                                    : ""
-                                }`}
-                            aria-current={
-                                activeCategory?.id === category.id
-                                    ? "page"
-                                    : undefined
-                            }
-                        >
-                            {category.title}
-                        </Link>
-                    ))}
-                </nav>
+                    {isComingSoon && (
+                      <span className={styles.statusBadge}>
+                        COMING SOON
+                      </span>
+                    )}
+                  </div>
 
-                {/* General Catalogue Overview */}
+                  <div className={styles.categoryCardBody}>
+                    <span className={styles.categoryNumber}>
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
 
-                {!activeCategory && (
-                    <div className={styles.categoryGrid}>
-                        {categories.map((category) => (
-                            <Link
-                                href={`/catalogue?category=${category.id}`}
-                                className={styles.categoryCard}
-                                key={category.id}
-                            >
-                                <span className={styles.categoryNumber}>
-                                    {category.number}
-                                </span>
-
-                                <div className={styles.categoryDetails}>
-                                    <h2>{category.title}</h2>
-                                    <p>{category.description}</p>
-                                </div>
-
-                                <span
-                                    className={styles.categoryArrow}
-                                    aria-hidden="true"
-                                >
-                                    ↗
-                                </span>
-                            </Link>
-                        ))}
+                    <div className={styles.categoryDetails}>
+                      <h2>{category.title}</h2>
+                      <p>{category.description}</p>
                     </div>
-                )}
 
-                {/* Selected Category Gallery */}
-
-                {activeCategory && (
-                    <section
-                        className={styles.selectedCategory}
-                        aria-labelledby="selected-category-title"
+                    <span
+                      className={styles.categoryArrow}
+                      aria-hidden="true"
                     >
-                        <div className={styles.categoryIntro}>
-                            <span>{activeCategory.number}</span>
+                      ↗
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
 
-                            <h2 id="selected-category-title">
-                                {activeCategory.title} Collection
-                            </h2>
-                        </div>
+        {selectedCategory && !activeCategory && (
+          <div
+            className={styles.galleryEmptyState}
+            role="status"
+          >
+            <h2>Category not found</h2>
+            <p>
+              This category may have been unpublished or its URL may
+              have changed.
+            </p>
 
-                        <div
-                            className={styles.galleryPlaceholder}
-                            role="status"
-                        >
-                            <div className={styles.galleryIcon}>
-                                <span />
-                                <span />
-                            </div>
+            <Link
+              href="/catalogue#catalogue-overview"
+              className={styles.backLink}
+            >
+              ← Back to all categories
+            </Link>
+          </div>
+        )}
 
-                            <h3>Gallery coming soon</h3>
+        {activeCategory && (
+          <section
+            id={`catalogue-gallery-${activeCategory.slug}`}
+            className={styles.selectedCategory}
+            aria-labelledby="selected-category-title"
+          >
+            <div className={styles.categoryIntro}>
+              <span>{categoryNumber}</span>
 
-                            <p>
-                                We&apos;re preparing the {activeCategory.title.toLowerCase()} collection.
-                                Product images will be available soon.
-                            </p>
-                        </div>
-
-                        <Link
-                            href="/catalogue"
-                            className={styles.backLink}
-                        >
-                            <span aria-hidden="true">←</span>
-                            Back to all categories
-                        </Link>
-                    </section>
-                )}
-
+              <h2 id="selected-category-title">
+                {activeCategory.title} Collection
+              </h2>
             </div>
-        </main>
-    );
+
+            {activeCategory.displayStatus === "comingSoon" ? (
+              <div
+                className={styles.galleryPlaceholder}
+                role="status"
+              >
+                <div className={styles.galleryIcon}>
+                  <span />
+                  <span />
+                </div>
+
+                <h3>Coming Soon</h3>
+
+                <p>
+                  We&apos;re preparing the{" "}
+                  {activeCategory.title.toLowerCase()} collection.
+                  Images will be available soon.
+                </p>
+              </div>
+            ) : galleryImages.length > 0 ? (
+              <CpCatalogueGallery
+                images={galleryImages}
+                categoryTitle={activeCategory.title}
+              />
+            ) : (
+              <div
+                className={styles.galleryEmptyState}
+                role="status"
+              >
+                <h3>Gallery being updated</h3>
+                <p>
+                  Images for this collection are being prepared.
+                  Please check back soon.
+                </p>
+              </div>
+            )}
+
+            <Link
+              href="/catalogue#catalogue-overview"
+              className={styles.backLink}
+            >
+              <span aria-hidden="true">←</span>
+              Back to all categories
+            </Link>
+          </section>
+        )}
+
+        {categories.length === 0 && (
+          <div
+            className={styles.galleryEmptyState}
+            role="status"
+          >
+            <h2>Catalogue being updated</h2>
+            <p>Our collections will be available here soon.</p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 };
 
 export default CpCatalogue;

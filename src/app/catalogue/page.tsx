@@ -45,7 +45,7 @@ export default function CataloguePage({
           title="Explore Our"
           highlight="Collection."
           description="Discover architectural metalwork, elegant railing designs, gates and glass solutions crafted for modern spaces."
-          imageSrc="/images/Automation-gate1.jpg"
+          imageSrc="/images/Automation_gate1.jpg"
           imageAlt="Automated metal gate by Majestic Metal Works"
           imagePosition="center"
         />

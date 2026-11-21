@@ -14,7 +14,7 @@ const CpHomeAbout = () => {
 
         <div className={styles.aboutMedia}>
           <Image
-            src="/images/home/company-intro-railing2.jpg"
+            src="/images/home/company-intro-railing3.jpeg"
             alt="Modern architectural staircase with glass and metal railing"
             fill
             sizes="(max-width: 768px) 80vw, 42vw"

@@ -1,68 +1,45 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import type { SanityImageSource } from "@sanity/image-url";
+
+import {
+  getAllCategories,
+  getFeaturedCategories,
+} from "@/sanity/lib/catalogue";
+
+import { urlFor } from "@/sanity/lib/image";
+
 import styles from "./cpHomeProducts.module.scss";
 
 interface ProductItem {
-  id: string;
+  _id: string;
   title: string;
+  slug: string;
   description: string;
-  image: string;
-  imageAlt: string;
+  coverImage?: SanityImageSource | null;
+  coverImageAlt?: string;
+  displayStatus?: "active" | "comingSoon";
 }
 
-const productItems: ProductItem[] = [
-  {
-    id: "stainless-steel-railings",
-    title: "Stainless Steel Railings",
-    description:
-      "Stainless-steel railing solutions for residential and commercial spaces.",
-    image: "/images/source-site/home/S-S-Railing.png",
-    imageAlt: "Stainless steel railing installation",
-  },
-  {
-    id: "glass-railings",
-    title: "Glass Railings",
-    description:
-      "Glass railing solutions that bring openness and a clean architectural finish.",
-    image: "/images/source-site/home/Glass-railing.png",
-    imageAlt: "Architectural glass railing",
-  },
-  {
-    id: "sliding-gates",
-    title: "Sliding Gates",
-    description:
-      "Sliding gate solutions for residential and commercial entrances.",
-    image: "/images/source-site/home/Sliding-Gate.jpg",
-    imageAlt: "Metal sliding gate",
-  },
-  {
-    id: "automated-gates",
-    title: "Automated Gates",
-    description:
-      "Automated gate solutions for convenient and controlled access.",
-    image: "/images/source-site/home/Automation-gate.jpg",
-    imageAlt: "Automated metal gate",
-  },
-  {
-    id: "glass-solutions",
-    title: "Window & Bathroom Glass",
-    description:
-      "Glass solutions for windows and bathrooms, designed for everyday spaces.",
-    image: "/images/source-site/home/Bathroom-glass1.jpg",
-    imageAlt: "Bathroom glass installation",
-  },
-  {
-    id: "jhula",
-    title: "Jhula",
-    description:
-      "Explore the company's jhula offerings for residential spaces.",
-    image: "/images/source-site/home/Jhula.jpg",
-    imageAlt: "Jhula product",
-  },
-];
+interface CpHomeProductsProps {
+  showAllCategories?: boolean;
+}
 
-const CpHomeProducts = () => {
+const getCategoryHref = (slug: string) =>
+  `/catalogue?category=${encodeURIComponent(
+    slug
+  )}#catalogue-gallery-${slug}`;
+
+const CpHomeProducts = async ({
+  showAllCategories = false,
+}: CpHomeProductsProps) => {
+  const categories = (
+    showAllCategories
+      ? await getAllCategories()
+      : await getFeaturedCategories()
+  ) as ProductItem[];
+
   return (
     <section
       id="home-products"
@@ -77,56 +54,133 @@ const CpHomeProducts = () => {
               WHAT WE OFFER
             </div>
 
-            <h2 id="products-title" className={styles.sectionTitle}>
+            <h2
+              id="products-title"
+              className={styles.sectionTitle}
+            >
               Solutions shaped around your{" "}
               <span>space.</span>
             </h2>
           </div>
 
           <p className={styles.sectionDescription}>
-            From stainless-steel railings and gates to glass
-            solutions and custom metalwork, explore what
-            Majestic Metal Works offers.
+            Explore our collection of architectural products,
+            custom fabrication and design solutions from
+            Majestic Metal Works.
           </p>
         </header>
 
         <div className={styles.productsGrid}>
-          {productItems.map((item) => (
-            <Link
-              href={`/catalogue?category=${item.id}`}
-              className={styles.productLink}
-              key={item.id}
-              aria-label={`Explore ${item.title} catalogue`}
-            >
-              <article className={styles.productCard}>
-                <div className={styles.productImage}>
-                  <Image
-                    src={item.image}
-                    alt={item.imageAlt}
-                    fill
-                    sizes="(max-width: 768px) 80vw, (max-width: 1200px) 38vw, 26vw"
-                  />
+          {categories.map((item) => {
+            const isComingSoon =
+              item.displayStatus === "comingSoon";
 
-                  <div className={styles.cardOverlay} />
+            const imageUrl = item.coverImage
+              ? urlFor(item.coverImage)
+                  .width(900)
+                  .height(675)
+                  .fit("crop")
+                  .auto("format")
+                  .url()
+              : null;
 
-                  <div className={styles.cardContent}>
-                    <div className={styles.cardDetails}>
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                    </div>
+            return (
+              <Link
+                href={getCategoryHref(item.slug)}
+                className={styles.productLink}
+                key={item._id}
+                aria-label={`Explore ${item.title} catalogue`}
+              >
+                <article className={styles.productCard}>
+                  <div className={styles.productImage}>
+                    {imageUrl ? (
+                      <Image
+                        src={imageUrl}
+                        alt={
+                          item.coverImageAlt ||
+                          `${item.title} product collection`
+                        }
+                        fill
+                        sizes="(max-width: 768px) 80vw, (max-width: 1200px) 38vw, 26vw"
+                      />
+                    ) : (
+                      <div className={styles.comingSoonVisual}>
+                        <span>COMING SOON</span>
+                      </div>
+                    )}
 
-                    <span
-                      className={styles.cardArrow}
+                    <div
+                      className={styles.cardOverlay}
                       aria-hidden="true"
-                    >
-                      ↗
-                    </span>
+                    />
+
+                    <div className={styles.cardContent}>
+                      <div className={styles.cardDetails}>
+                        {isComingSoon && (
+                          <span className={styles.comingSoonLabel}>
+                            COMING SOON
+                          </span>
+                        )}
+
+                        <h3>{item.title}</h3>
+
+                        <p>{item.description}</p>
+                      </div>
+
+                      <span
+                        className={styles.cardArrow}
+                        aria-hidden="true"
+                      >
+                        ↗
+                      </span>
+                    </div>
                   </div>
+                </article>
+              </Link>
+            );
+          })}
+
+          {!showAllCategories && (
+            <Link
+              href="/catalogue"
+              className={`${styles.productLink} ${styles.exploreLink}`}
+              aria-label="Explore the complete catalogue"
+            >
+              <article
+                className={`${styles.productCard} ${styles.exploreCard}`}
+              >
+                <div className={styles.exploreCardContent}>
+                  <span className={styles.exploreEyebrow}>
+                    DISCOVER MORE
+                  </span>
+
+                  <h3>
+                    Explore the full
+                    <span> catalogue.</span>
+                  </h3>
+
+                  <p>
+                    Browse all our categories and discover
+                    more of what we create.
+                  </p>
+
+                  <span
+                    className={styles.exploreArrow}
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
                 </div>
               </article>
             </Link>
-          ))}
+          )}
         </div>
+
+        {categories.length === 0 && (
+          <p className={styles.emptyMessage}>
+            Our collection is being updated. Please check back soon.
+          </p>
+        )}
       </div>
     </section>
   );
